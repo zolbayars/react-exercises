@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -13,21 +13,11 @@ const user = {
   lastName: 'Bayarsaikhan'
 };
 
-function tick(){
-  const element = (
-    <div>
-      <h1>
-        Hello, {formatName(user)}!
-      </h1>
-      <h2>It is {new Date().toLocaleTimeString()}</h2>
-    </div>
-  );
-
-  ReactDOM.render(element, document.getElementById('root'));
+class Welcome extends Component {
+  render(){
+    return <h1>Hi, {this.props.name}</h1>
+  }
 }
 
-setInterval(tick, 1000);
-
-
-// ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Welcome name="Zoloo" />, document.getElementById('root'));
 registerServiceWorker();
