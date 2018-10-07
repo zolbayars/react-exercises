@@ -106,7 +106,85 @@ class CommentModular extends Component {
   }
 }
 
+// ======================= Component State =======================
+
+class Clock extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      now: new Date()
+    }
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      now: new Date()
+    });
+  }
+
+  render(){
+    return (
+      <div className="Clock">
+        <h1>Now time is: {this.state.now.toLocaleTimeString()}</h1>
+      </div>
+    );
+  }
+}
+
+class Counter extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      counter: 0
+    }
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState((state, props) => ({
+      counter: state.counter + parseInt(props.increment)
+    }));
+  }
+
+  // Unreliable approach. The state is asynchronous
+  // tick() {
+  //   this.setState({
+  //     counter: this.state.counter + 1
+  //   });
+  // }
+
+  render(){
+    return (
+      <div className="Counter" increment="3">
+        <h1>Now time is: {this.state.counter}</h1>
+      </div>
+    );
+  }
+}
 
 
-ReactDOM.render(<Comment comment={comment} />, document.getElementById('root'));
+ReactDOM.render(<Counter />, document.getElementById('root'));
 registerServiceWorker();
