@@ -64,5 +64,49 @@ class Comment extends Component {
   }
 }
 
+// Name props from the component's own point of view rather than the context
+// which it is used (We changed the author to user in here)
+class Avatar extends Component {
+  render() {
+    return (
+      <img className="Avatar"
+        src={this.props.user.avatar}
+        alt={this.props.user.name}
+      />
+    );
+  }
+}
+
+class UserInfo extends Component {
+  render() {
+    return (
+      <div className="UserInfo">
+        <Avatar user={this.props.user} />
+        <div className="UserInfo-name">
+          <b>{this.props.user.name}</b>
+        </div>
+      </div>
+    );
+  }
+}
+
+class CommentModular extends Component {
+  render() {
+    return (
+      <div className="Comment">
+        <UserInfo user={this.props.comment.author} />
+        <div className="CommentText">
+          {this.props.comment.text}
+        </div>
+        <div className="CommentDate">
+          {formatDate(this.props.comment.date)}
+        </div>
+      </div>
+    );
+  }
+}
+
+
+
 ReactDOM.render(<Comment comment={comment} />, document.getElementById('root'));
 registerServiceWorker();
